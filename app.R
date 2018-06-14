@@ -12,6 +12,7 @@ library(lubridate)
 #Sys.setenv(TZ="Europe/Madrid")
 #Sys.getenv("TZ")
 
+url <- "https://twitter.com/intent/tweet?text=Expected%20date%20of%20delivery&url=http://watzilei.com/shiny/EDL/&via=WATZILEI"
 ui <- fluidPage(theme = shinytheme ("flatly"),
   titlePanel(tags$h1(tags$b("Expected date of delivery")), windowTitle = "Expected date of delivery"),
   sidebarPanel(width = 3,
@@ -33,7 +34,14 @@ ui <- fluidPage(theme = shinytheme ("flatly"),
   
     h6("By:", br(),
        "MA Luque-Fernandez", br(),
-       "Daniel Redondo Sánchez")
+       "Daniel Redondo Sánchez"),
+    
+    actionButton("twitter",
+                 label = "Share on Twitter",
+                 icon = icon("twitter"),
+                 style="color: #fff; background-color: #00ACED; border-color: #00ACED",
+                 onclick = sprintf("window.open('%s')", url)
+                 )
   ),
   
   mainPanel(
