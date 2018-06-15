@@ -68,7 +68,10 @@ server <- function(input, output) {
     req(input$date)
     link_base = "https://en.wikipedia.org/wiki/Wikipedia:Selected_anniversaries/"
     link_day <- day(date_birth())
-    link_month <- month(date_birth(), label = TRUE, abbr = FALSE, locale = "English_United States.1252")
+    link_month <- switch (Sys.info()[[1]],
+      "Windows" = month(date_birth(), label = TRUE, abbr = FALSE, locale = "English_United States.1252"),
+      month(date_birth(), label = TRUE, abbr = FALSE)
+    )
     link <- paste0(link_base, link_month, "_", link_day)
     HTML("<a href='", link, "'> Selected anniversaries of that day (Wikipedia) </a>")
   }) 
